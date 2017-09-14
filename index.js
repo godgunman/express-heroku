@@ -28,7 +28,28 @@ app.get('/query-address', function (req, res) {
       console.log('statusCode:', response.statusCode)
       console.log('body:', body)
       res.send(getAddress(JSON.parse(body)))
-    });
+    })
+})
+
+app.get('/query-place', function (req, res) {
+
+  let url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json'
+  let options = {
+    url: url,
+    qs: {
+      key: 'AIzaSyBjSOxQ59gfngBwu4HMZZS8XrJMmIvt5q0',
+      location: '25.019127, 121.541980',
+      radius: '1000',
+      type: 'cafe',
+    },
+    method: 'GET'
+  }
+  request(options, function (error, response, body) {
+    console.log('error:', error)
+    console.log('statusCode:', response.statusCode)
+    console.log('body:', body)
+    res.send(body)
+  })
 })
 
 app.listen(port, function () {
