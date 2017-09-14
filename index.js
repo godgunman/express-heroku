@@ -31,16 +31,18 @@ app.get('/query-address', function (req, res) {
     })
 })
 
+// /query-place?location=25.019127,121.541980&type=bar
 app.get('/query-place', function (req, res) {
-
+  let location = req.query.location
+  let type = req.query.type
   let url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json'
   let options = {
     url: url,
     qs: {
       key: 'AIzaSyBjSOxQ59gfngBwu4HMZZS8XrJMmIvt5q0',
-      location: '25.019127, 121.541980',
+      location: location,
       radius: '1000',
-      type: 'cafe',
+      type: type,
     },
     method: 'GET'
   }
