@@ -4,14 +4,28 @@
   "description": "express project",
   "main": "index.js",
   "scripts": {
+    "build": "./node_modules/.bin/webpack --watch --config webpack.config.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
   "author": "ggm",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.16.2",
+    "babel-loader": "^7.1.2",
+    "babel-preset-react": "^6.24.1",
+    "body-parser": "^1.17.2",
     "ejs": "^2.5.7",
     "express": "^4.15.4",
-    "request": "^2.81.0"
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "request": "^2.81.0",
+    "webpack": "^3.5.4"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.0",
+    "webpack": "^3.6.0"
   }
 }

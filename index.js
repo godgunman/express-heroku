@@ -1,3 +1,4 @@
+const path = require('path')
 const express = require('express')
 const request = require('request')
 const getAddress = require('./get-address')
@@ -7,15 +8,33 @@ const port = process.env.PORT || 3000
 
 app.set('view engine', 'ejs')
 
+// Serve static assets
+// http://expressjs.com/en/starter/static-files.html
+app.use('/static', express.static(path.resolve(__dirname, './static')))
+
+// in-memory datastore, data init
+app.set('history', [{
+  place: 'Taipei 101',
+  result: {
+    formatted_address: '110台灣台北市信義區信義路五段7號台北101',
+    lat: 25.0339639,
+    lng: 121.5644722,
+  }
+}]);
+
+app.get('/', function (req, res) {
+  res.sendFile(path.resolve(__dirname, './views/index.html'))
+})
+
+app.get('/history', function (req, res) {
+  res.json(app.get('history'))
+})
+
 app.get('/home', function (req, res) {
   res.render('home', {
     title: 'hello world',
     menu: ['Features', 'Contact', 'About'],
   });
-})
-
-app.get('/', function (req, res) {
-  res.send('Hello World!')
 })
 
 // http://localhost:3000/query-address?address=NTU
