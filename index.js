@@ -1,3 +1,4 @@
+const path = require('path')
 const express = require('express')
 const request = require('request')
 const getAddress = require('./get-address')
@@ -6,6 +7,9 @@ const app = express()
 const port = process.env.PORT || 3000
 
 app.set('view engine', 'ejs')
+
+app.use('/static', express.static(
+  path.resolve(__dirname, 'static')))
 
 app.set('history', [{
   address: 'NTU',
@@ -28,7 +32,8 @@ app.get('/home', function (req, res) {
 })
 
 app.get('/', function (req, res) {
-  res.send('Hello World!')
+  res.sendFile(
+    path.resolve(__dirname, 'views/index.html'))
 })
 
 // http://localhost:3000/query-address?address=NTU
