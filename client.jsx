@@ -6,20 +6,37 @@ const getApiUrl = () => {
   return `${window.location.protocol}//${window.location.host}`;
 }
 
-const getHistory = async () => {
-  let url = getApiUrl() + '/history/';
-  let result = await axios.get(url);
-  console.log(result)
-}
-
-getHistory()
-
 class PlaceList extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      data: []
+    };
+  }
+
+  componnetDidMount() {
+    this.update()
+  }
+
+  async update() {
+    let url = getApiUrl() + '/history/'
+    let result = await axios.get(url)
+    this.setState({ data: result })
+  }
+
   render() {
     return (
       <div>
-        <li>查詢的名稱, 地址, 經緯度</li>
-        <li>查詢的名稱, 地址, 經緯度</li>
+        {
+          this.state.data.map((item) => {
+            return (
+              <li>{item.address},
+                {item.result.formatted_address},
+                {item.result.lat},
+                {item.result.lng}</li>
+            )
+          })
+        }
       </div>
     )
   }
