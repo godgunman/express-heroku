@@ -20,8 +20,8 @@ class PlaceList extends React.Component {
 
   async update() {
     let url = getApiUrl() + '/history/'
-    let result = await axios.get(url)
-    this.setState({ data: result.data })
+    let { data } = await axios.get(url)
+    this.setState({ data })
   }
 
   render() {
