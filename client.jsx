@@ -14,6 +14,16 @@ const getHistory = async () => {
 
 getHistory()
 
+class PlaceList extends React.Component {
+  render() {
+    return (
+      <div>
+        <li>查詢的名稱, 地址, 經緯度</li>
+        <li>查詢的名稱, 地址, 經緯度</li>
+      </div>
+    )
+  }
+}
 class App extends React.Component {
   render() {
     return (
@@ -23,6 +33,7 @@ class App extends React.Component {
         <button>
           search
         </button>
+        <PlaceList />
       </div>
     )
   }
