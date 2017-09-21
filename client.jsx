@@ -6,6 +6,17 @@ const getApiUrl = () => {
   return `${window.location.protocol}//${window.location.host}`;
 }
 
+class Place extends React.Component {
+  render() {
+    return (
+      <li><b>{this.props.place}</b>,
+          {this.props.address},
+          {this.props.location},
+      </li>
+    )
+  }
+}
+
 class PlaceList extends React.Component {
   constructor(props) {
     super(props)
@@ -29,11 +40,12 @@ class PlaceList extends React.Component {
       <div>
         {
           this.state.data.map((item) => {
+            let location = `${item.result.lat},${item.result.lng}`
             return (
-              <li>{item.address},
-                {item.result.formatted_address},
-                {item.result.lat},
-                {item.result.lng}</li>
+              <Place place={item.address}
+                address={item.result.formatted_address}
+                location={location}
+              />
             )
           })
         }
