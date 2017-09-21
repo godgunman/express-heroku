@@ -14,14 +14,14 @@ class PlaceList extends React.Component {
     };
   }
 
-  componnetDidMount() {
+  componentDidMount() {
     this.update()
   }
 
   async update() {
     let url = getApiUrl() + '/history/'
     let result = await axios.get(url)
-    this.setState({ data: result })
+    this.setState({ data: result.data })
   }
 
   render() {
