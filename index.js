@@ -38,7 +38,7 @@ app.get('/', function (req, res) {
 
 // http://localhost:3000/query-address?address=NTU
 app.get('/query-address', function (req, res) {
-  let address = req.query.address
+  let address = encodeURI(req.query.address)
   let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyC-BIjjbLmwgBtY8VavL39X1Malo5oK_rw`
   request(url,
     function (error, response, body) {
