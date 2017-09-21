@@ -54,12 +54,36 @@ class PlaceList extends React.Component {
   }
 }
 class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      queryPlace: '',
+    };
+  }
+
+  handleInputChange(event) {
+    this.setState({
+      queryPlace: event.target.value
+    })
+  }
+
+  async query() {
+    let url = getApiUrl() + '/query-address'
+    let { data } = await axios.get(url, {
+      params: {
+        address: this.state.queryPlace,
+      }
+    })
+    console.log(data)
+  }
+
   render() {
     return (
       <div>
-        <input type="text" placeholder="search...">
+        <input type="text" placeholder="search..."
+          onChange={this.handleInputChange.bind(this)}>
         </input>
-        <button>
+        <button onClick={this.query.bind(this)}>
           search
         </button>
         <PlaceList />
