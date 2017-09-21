@@ -74,7 +74,12 @@ class App extends React.Component {
         address: this.state.queryPlace,
       }
     })
+    this.placeList.update()
     console.log(data)
+  }
+
+  setPlaceList(placeList) {
+    this.placeList = placeList
   }
 
   render() {
@@ -86,7 +91,7 @@ class App extends React.Component {
         <button onClick={this.query.bind(this)}>
           search
         </button>
-        <PlaceList />
+        <PlaceList ref={this.setPlaceList.bind(this)}/>
       </div>
     )
   }
