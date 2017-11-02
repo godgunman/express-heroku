@@ -19,7 +19,11 @@ app.get('/', function (req, res) {
 app.get('/api/search', async function (req, res) {
   const address = req.query.address
   if (address) {
-    res.json(await search(address))
+    try {
+      res.json(await search(address))
+    } catch (error) {
+      res.json({ error: error })
+    }
   } else {
     res.json({ error: 'Address is empty.' })
   }
