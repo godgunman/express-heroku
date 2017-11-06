@@ -1,7 +1,7 @@
 const rp = require("request-promise")
 const getInfo = require("./getInfo")
 
-const KEY = 'AIzaSyBImOy7k7q3nRG0YOcN2Z4GfQDu3q7WYNE'
+const KEY = process.env.KEY || 'AIzaSyBImOy7k7q3nRG0YOcN2Z4GfQDu3q7WYNE'
 
 const searchRestaurant = async address => {
   let addressUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURI(address)}&key=${KEY}`
