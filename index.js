@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const search = require('./search')
+const path = require('path')
 
 const app = express()
 
@@ -14,7 +15,7 @@ const port = process.env.PORT || 3000
 let queryHistory = []
 
 app.get('/', function (req, res) {
-  res.send('Hello World!')
+  res.sendFile(path.resolve(__dirname, 'views/index.html'))
 })
 
 app.get('/api/search', async function (req, res) {
