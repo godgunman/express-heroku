@@ -7,7 +7,6 @@ const getApiUrl = () => {
 }
 
 class History extends React.Component {
-
   constructor(props) {
     super(props)
     this.state = {
@@ -15,20 +14,23 @@ class History extends React.Component {
     };
   }
 
-  async getHistory() {
+  async update() {
     let url = getApiUrl() + '/api/history/';
     let { data } = await axios.get(url);
-    console.log(data);
-    return data;
+    this.setState({ data });
   }
 
   componentDidMount() {
-    this.getHistory();
+    this.update();
   }
 
   render() {
-    // let result = (await this.getHistory())[0];
-    return <div>Hello {this.props.name}</div>;
+    console.log('[render]', this.state);
+
+    return this.state.data.map((item) => {
+      const { formattedAddress, lat, lng, queryAddress } = item;
+      return <li> {queryAddress}, {lat}, {lng}</li>
+    })
   }
 }
 
