@@ -11,8 +11,7 @@ class HistoryItem extends React.Component {
     const { formattedAddress,
       lat, lng, queryAddress } = this.props.item;
 
-    return <li> <b>{queryAddress}</b> ({lat},
-    {lng}) <br /> {formattedAddress}</li>
+    return <li key={this.props.index}> <b>{queryAddress}</b>({lat},{lng}) <br /> {formattedAddress}</li>
   }
 }
 
@@ -36,8 +35,8 @@ class History extends React.Component {
   }
 
   render() {
-    return this.state.data.map((item) => {
-      return <HistoryItem item={item} />
+    return this.state.data.map((item, index) => {
+      return <HistoryItem item={item} index={index}/>
     })
   }
 }
