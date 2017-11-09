@@ -6,6 +6,17 @@ const getApiUrl = () => {
   return `${window.location.protocol}//${window.location.host}`;
 }
 
+class HistoryItem extends React.Component {
+  render() {
+    const { formattedAddress,
+      lat, lng, queryAddress } = this.props.item;
+    
+    return <li> <b>{queryAddress}</b> ({lat},
+    {lng}) <br /> {formattedAddress}</li>
+  }
+}
+
+
 class History extends React.Component {
   constructor(props) {
     super(props)
@@ -26,8 +37,7 @@ class History extends React.Component {
 
   render() {
     return this.state.data.map((item) => {
-      const { formattedAddress, lat, lng, queryAddress } = item;
-      return <li> {queryAddress}, {lat}, {lng}, {formattedAddress}</li>
+      return <HistoryItem item={item}/>
     })
   }
 }
