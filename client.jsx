@@ -10,8 +10,7 @@ class HistoryItem extends React.Component {
   render() {
     const { formattedAddress,
       lat, lng, queryAddress } = this.props.item;
-
-    return <li key={this.props.index}> <b>{queryAddress}</b>({lat},{lng}) <br /> {formattedAddress}</li>
+    return <li> <b>{queryAddress}</b>({lat},{lng}) <br /> {formattedAddress}</li>
   }
 }
 
@@ -35,9 +34,15 @@ class History extends React.Component {
   }
 
   render() {
-    return this.state.data.map((item, index) => {
-      return <HistoryItem item={item} index={index}/>
-    })
+    return (
+      <ul>
+        {
+          this.state.data.map((item, index) => {
+            return <HistoryItem item={item} key={index} />
+          })
+        }
+      </ul>
+    );
   }
 }
 
@@ -46,7 +51,7 @@ class App extends React.Component {
   async search() {
     let url =
       getApiUrl() + '/api/search?address=總統府';
-    let {data} = await axios.get(url)
+    let { data } = await axios.get(url)
     console.log(data)
   }
 
