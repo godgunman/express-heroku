@@ -10,7 +10,7 @@ class HistoryItem extends React.Component {
   render() {
     const { formattedAddress,
       lat, lng, queryAddress } = this.props.item;
-    
+
     return <li> <b>{queryAddress}</b> ({lat},
     {lng}) <br /> {formattedAddress}</li>
   }
@@ -37,13 +37,33 @@ class History extends React.Component {
 
   render() {
     return this.state.data.map((item) => {
-      return <HistoryItem item={item}/>
+      return <HistoryItem item={item} />
     })
+  }
+}
+
+class App extends React.Component {
+
+  async search() {
+    let url =
+      getApiUrl() + '/api/search?address=總統府';
+    let {data} = await axios.get(url)
+    console.log(data)
+  }
+
+  render() {
+    return (
+      <div>
+        <input type="text" />
+        <button onClick={this.search}> search </button>
+        <History />
+      </div>
+    )
   }
 }
 
 // 將 hello 元件載入 root element 裡頭
 ReactDOM.render(
-  <History />,
+  <App />,
   document.getElementById('root')
 )
