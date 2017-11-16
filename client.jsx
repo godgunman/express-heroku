@@ -51,29 +51,34 @@ class App extends React.Component {
     super(props)
     this.state = {}
   }
-
+  
   async search(event) {
     let input = this.state.input;
     let url =
       getApiUrl() + `/api/search?address=${input}`;
     let { data } = await axios.get(url)
+    this.history.update();
     console.log(data)
   }
 
   handleChange(event) {
     let value = event.target.value
-    this.setState({ input: value })
+    this.setState({input: value})
+  }
+
+  setHistory(history) {
+    this.history = history
   }
 
   render() {
     return (
       <div>
-        <input type="text"
-          onChange={this.handleChange.bind(this)} />
-        <button onClick={this.search.bind(this)}>
+        <input type="text" 
+          onChange={this.handleChange.bind(this)}/>
+        <button onClick={this.search.bind(this)}> 
           search
         </button>
-        <History />
+        <History ref={this.setHistory.bind(this)}/>
       </div>
     )
   }
