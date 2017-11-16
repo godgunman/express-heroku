@@ -3,6 +3,18 @@ const bodyParser = require('body-parser')
 const search = require('./search')
 const path = require('path')
 
+const MongoClient = require('mongodb').MongoClient;
+
+let mdb;
+// Connect to the db
+const mongoURL = 'mongodb://ggm:1235813@ds111496.mlab.com:11496/js-class-1116'
+MongoClient.connect(mongoURL, function(err, db) {
+    if (err) {
+      return console.dir(err); 
+    } 
+    mdb = db;
+});
+
 const app = express()
 
 // parse application/x-www-form-urlencoded
