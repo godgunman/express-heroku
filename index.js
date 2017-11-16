@@ -20,14 +20,18 @@ MongoClient.connect(mongoURL, async function (err, db) {
   // collection.insert(doc1);
   // collection.insert(doc2, { w: 1 }, function (err, result) { });
   // collection.insert(lotsOfDocs, { w: 1 }, function (err, result) { });
-  let cursor = collection.find({ hello: 'doc1' });
-  let item = await cursor.nextObject();
-  console.log(item);
-  item = await cursor.nextObject();
-  console.log(item);
-  item = await cursor.nextObject();
-  console.log(item);
-  
+  // let cursor = collection.find({ hello: 'doc1' });
+  // let item = await cursor.nextObject();
+  // console.log(item);
+  // item = await cursor.nextObject();
+  // console.log(item);
+  // item = await cursor.nextObject();
+  // console.log(item);
+
+  collection.find({}).toArray((err, results) => {
+    console.log(results)
+  });
+
   mdb = db;
 });
 
