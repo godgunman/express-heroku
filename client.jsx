@@ -66,7 +66,7 @@ class App extends React.Component {
   }
 }
 
-// 將 hello 元件載入 root element 裡頭
+// 將 App 元件載入 root element 裡頭
 ReactDOM.render(
   <App />,
   document.getElementById('root')
