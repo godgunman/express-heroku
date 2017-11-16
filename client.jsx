@@ -47,19 +47,32 @@ class History extends React.Component {
 }
 
 class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {}
+  }
 
-  async search() {
+  async search(event) {
+    let input = this.state.input;
     let url =
-      getApiUrl() + '/api/search?address=總統府';
+      getApiUrl() + `/api/search?address=${input}`;
     let { data } = await axios.get(url)
     console.log(data)
+  }
+
+  handleChange(event) {
+    let value = event.target.value
+    this.setState({ input: value })
   }
 
   render() {
     return (
       <div>
-        <input type="text" />
-        <button onClick={this.search}> search </button>
+        <input type="text"
+          onChange={this.handleChange.bind(this)} />
+        <button onClick={this.search.bind(this)}>
+          search
+        </button>
         <History />
       </div>
     )
