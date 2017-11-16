@@ -8,19 +8,26 @@ const MongoClient = require('mongodb').MongoClient;
 let mdb;
 // Connect to the db
 const mongoURL = 'mongodb://ggm:1235813@ds111496.mlab.com:11496/js-class-1116'
-MongoClient.connect(mongoURL, function (err, db) {
+MongoClient.connect(mongoURL, async function (err, db) {
   if (err) {
     return console.dir(err);
   }
   let collection = db.collection('test');
-  let doc1 = { 'hello': 'doc1' };
-  let doc2 = { 'hello': 'doc2' };
-  let lotsOfDocs = [{ 'hello': 'doc3' }, { 'hello': 'doc4' }];
+  // let doc1 = { 'hello': 'doc1' };
+  // let doc2 = { 'hello': 'doc2' };
+  // let lotsOfDocs = [{ 'hello': 'doc3' }, { 'hello': 'doc4' }];
 
-  collection.insert(doc1);
-  collection.insert(doc2, { w: 1 }, function (err, result) { });
-  collection.insert(lotsOfDocs, { w: 1 }, function (err, result) { });
-
+  // collection.insert(doc1);
+  // collection.insert(doc2, { w: 1 }, function (err, result) { });
+  // collection.insert(lotsOfDocs, { w: 1 }, function (err, result) { });
+  let cursor = collection.find({ hello: 'doc1' });
+  let item = await cursor.nextObject();
+  console.log(item);
+  item = await cursor.nextObject();
+  console.log(item);
+  item = await cursor.nextObject();
+  console.log(item);
+  
   mdb = db;
 });
 
