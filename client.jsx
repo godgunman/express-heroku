@@ -15,7 +15,7 @@ class HistoryItem extends React.Component {
         <i className="large map signs middle aligned icon"></i>
         <div className="content">
           <a className="header">{queryAddress}</a>
-          <div className="description">({lat},{lng}) {formattedAddress}</div>
+          <div className="description">({lat},{lng}) <br/> {formattedAddress}</div>
         </div>
       </div>
     )
