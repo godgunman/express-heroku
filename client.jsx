@@ -51,7 +51,7 @@ class App extends React.Component {
     super(props)
     this.state = {}
   }
-  
+
   async search(event) {
     let input = this.state.input;
     let url =
@@ -63,7 +63,7 @@ class App extends React.Component {
 
   handleChange(event) {
     let value = event.target.value
-    this.setState({input: value})
+    this.setState({ input: value })
   }
 
   setHistory(history) {
@@ -72,13 +72,27 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <input type="text" 
-          onChange={this.handleChange.bind(this)}/>
-        <button onClick={this.search.bind(this)}> 
-          search
-        </button>
-        <History ref={this.setHistory.bind(this)}/>
+      <div className="ui middle aligned center aligned grid">
+        <div className="fourteen wide column">
+          <h2 className="ui teal image header">
+            <i className="hand spock icon"></i>
+            <div className="content">
+              Search for food
+            </div>
+          </h2>
+          <div className="ui action input">
+            <input type="text"
+              onChange={this.handleChange.bind(this)} />
+            <button className="ui blue button"
+              onClick={this.search.bind(this)}>
+              search
+            </button>
+          </div>
+          <div className="ui horizontal divider">
+            Places  
+          </div>
+          <History ref={this.setHistory.bind(this)} />
+        </div>
       </div>
     )
   }
