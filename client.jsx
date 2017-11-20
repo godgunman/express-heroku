@@ -10,7 +10,15 @@ class HistoryItem extends React.Component {
   render() {
     const { formattedAddress,
       lat, lng, queryAddress } = this.props.item;
-    return <li> <b>{queryAddress}</b>({lat},{lng}) <br /> {formattedAddress}</li>
+    return (
+      <div className="item">
+        <i className="large map signs middle aligned icon"></i>
+        <div className="content">
+          <a className="header">{queryAddress}</a>
+          <div className="description">({lat},{lng}) {formattedAddress}</div>
+        </div>
+      </div>
+    )
   }
 }
 
@@ -35,13 +43,13 @@ class History extends React.Component {
 
   render() {
     return (
-      <ul>
+      <div className="ui relaxed divided list">
         {
           this.state.data.map((item, index) => {
             return <HistoryItem item={item} key={index} />
           })
         }
-      </ul>
+      </div>
     );
   }
 }
@@ -74,7 +82,7 @@ class App extends React.Component {
     return (
       <div className="ui middle aligned center aligned grid">
         <div className="fourteen wide column">
-          <h2 className="ui teal image header">
+          <h2 id="header" className="ui teal image header">
             <i className="hand spock icon"></i>
             <div className="content">
               Search for food
@@ -89,7 +97,7 @@ class App extends React.Component {
             </button>
           </div>
           <div className="ui horizontal divider">
-            Places  
+            Places
           </div>
           <History ref={this.setHistory.bind(this)} />
         </div>
