@@ -6,12 +6,14 @@ const path = require('path')
 const MongoClient = require('mongodb').MongoClient;
 
 let mdb;
+let historyCollection;
 // Connect to the db
 const mongoURL = 'mongodb://ggm:1235813@ds111496.mlab.com:11496/js-class-1116'
 MongoClient.connect(mongoURL, async function (err, db) {
   if (err) {
     return console.dir(err);
   }
+  historyCollection = db.collection('history');
   let collection = db.collection('test');
   // let doc1 = { 'hello': 'doc1' };
   // let doc2 = { 'hello': 'doc2' };
@@ -58,6 +60,7 @@ app.get('/api/search', async function (req, res) {
     try {
       let result = await search(address)
       queryHistory.push(result)
+      historyCollection.insert(result)
       res.json(result)
     } catch (error) {
       res.json({ error: error })
