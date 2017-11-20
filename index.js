@@ -37,7 +37,6 @@ app.get('/api/search', async function (req, res) {
   if (address) {
     try {
       let result = await search(address)
-      queryHistory.push(result)
       historyCollection.insert(result)
       res.json(result)
     } catch (error) {
