@@ -4,6 +4,7 @@ const search = require('./search')
 const path = require('path')
 
 const MongoClient = require('mongodb').MongoClient;
+const port = process.env.PORT || 3000
 
 let mdb;
 let historyCollection;
@@ -13,28 +14,8 @@ MongoClient.connect(mongoURL, async function (err, db) {
   if (err) {
     return console.dir(err);
   }
-  historyCollection = db.collection('history');
-  let collection = db.collection('test');
-  // let doc1 = { 'hello': 'doc1' };
-  // let doc2 = { 'hello': 'doc2' };
-  // let lotsOfDocs = [{ 'hello': 'doc3' }, { 'hello': 'doc4' }];
-
-  // collection.insert(doc1);
-  // collection.insert(doc2, { w: 1 }, function (err, result) { });
-  // collection.insert(lotsOfDocs, { w: 1 }, function (err, result) { });
-  // let cursor = collection.find({ hello: 'doc1' });
-  // let item = await cursor.nextObject();
-  // console.log(item);
-  // item = await cursor.nextObject();
-  // console.log(item);
-  // item = await cursor.nextObject();
-  // console.log(item);
-
-  collection.find({}).toArray((err, results) => {
-    console.log(results)
-  });
-
   mdb = db;
+  historyCollection = db.collection('history');
 });
 
 const app = express()
@@ -44,9 +25,6 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 // parse application/json
 app.use(bodyParser.json())
-
-const port = process.env.PORT || 3000
-let queryHistory = []
 
 app.use('/static', express.static(path.resolve(__dirname, 'static')))
 
@@ -70,8 +48,13 @@ app.get('/api/search', async function (req, res) {
   }
 })
 
-app.get('/api/history', function (req, res) {
-  res.json(queryHistory)
+app.get('/api/history', async function (req, res) {
+  try {
+    let results = await historyCollection.find({}).toArray()
+    res.json(results)
+  } catch (error) {
+    res.json(error)
+  }
 })
 
 app.listen(port, function () {
