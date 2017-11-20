@@ -10,7 +10,15 @@ class HistoryItem extends React.Component {
   render() {
     const { formattedAddress,
       lat, lng, queryAddress } = this.props.item;
-    return <li> <b>{queryAddress}</b>({lat},{lng}) <br /> {formattedAddress}</li>
+    return (
+      <div className="item">
+        <i className="large map signs middle aligned icon"></i>
+        <div className="content">
+          <a className="header">{queryAddress}</a>
+          <div className="description">({lat},{lng})<br/>{formattedAddress}</div>
+        </div>
+      </div>
+    )
   }
 }
 
@@ -35,13 +43,13 @@ class History extends React.Component {
 
   render() {
     return (
-      <ul>
+      <div id="resultList" className="ui relaxed divided list">
         {
           this.state.data.map((item, index) => {
             return <HistoryItem item={item} key={index} />
           })
         }
-      </ul>
+      </div>
     );
   }
 }
@@ -51,7 +59,7 @@ class App extends React.Component {
     super(props)
     this.state = {}
   }
-  
+
   async search(event) {
     let input = this.state.input;
     let url =
@@ -63,7 +71,7 @@ class App extends React.Component {
 
   handleChange(event) {
     let value = event.target.value
-    this.setState({input: value})
+    this.setState({ input: value })
   }
 
   setHistory(history) {
@@ -72,13 +80,25 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <input type="text" 
-          onChange={this.handleChange.bind(this)}/>
-        <button onClick={this.search.bind(this)}> 
-          search
-        </button>
-        <History ref={this.setHistory.bind(this)}/>
+      <div className="ui middle aligned center aligned grid">
+        <div className="fourteen wide column">
+          <h2 className="ui teal image header">
+            <i className="hand spock icon"></i>
+            <div className="content">
+              Search the place
+            </div>
+          </h2>
+          <div className="ui action input">
+            <input id="urlText" type="text" placeholder="Search..."
+              onChange={this.handleChange.bind(this)} />
+            <button id="searchButton" className="ui blue button"
+              onClick={this.search.bind(this)}>Search</button>
+          </div>
+          <div className="ui horizontal divider">
+            place-spot
+          </div>
+          <History ref={this.setHistory.bind(this)} />
+        </div>
       </div>
     )
   }
